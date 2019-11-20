@@ -28,5 +28,9 @@ namespace vt_webapp.Controllers
             Console.WriteLine("contact aufgerufen");
             return View();
         }
+        public ActionResult Chat()
+        {
+            return View();
+        }
     }
 }
