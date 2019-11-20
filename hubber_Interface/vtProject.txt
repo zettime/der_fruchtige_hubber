@@ -1,0 +1,15 @@
+ConnectionString:
+	HostName=derFruchtigeHubber.azure-devices.net;DeviceId=derHubberPy;SharedAccessKey=bgwC9u5fzCoipjeKfznjyKw0WvZ77CYtbt1rzIeB33M=
+	
+ConnectionString Zum Dienst:
+	HostName=derFruchtigeHubber.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=TK7iZCqCRl06m+nhsuN1tX42xzz8hE7vTkyXft1RhsI=
+
+events.endpoint
+		"sb://ihsuprodamres022dednamespace.servicebus.windows.net/"
+
+events.path
+		"iothub-ehub-derfruchti-2469851-3c70fbb27e"
+
+policy service primeryKey
+		"TK7iZCqCRl06m+nhsuN1tX42xzz8hE7vTkyXft1RhsI="
+
