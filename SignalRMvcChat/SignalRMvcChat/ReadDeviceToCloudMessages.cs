@@ -1,20 +1,19 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Web;
-using Microsoft.AspNet.SignalR;
-using Microsoft.Azure.EventHubs;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+// This application uses the Microsoft Azure Event Hubs Client for .NET
+// For samples see: https://github.com/Azure/azure-event-hubs/tree/master/samples/DotNet
+// For documenation see: https://docs.microsoft.com/azure/event-hubs/
 using System;
 using Microsoft.Azure.EventHubs;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Text;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 
-namespace SignalRChat
+namespace read_d2c_messages
 {
-    public class ChatHub : Hub
+    class ReadDeviceToCloudMessages
     {
         // Event Hub-compatible endpoint
         // az iot hub show --query properties.eventHubEndpoints.events.endpoint --name {your IoT Hub name}
@@ -29,18 +28,19 @@ namespace SignalRChat
         private readonly static string s_iotHubSasKeyName = "service";
         private static EventHubClient s_eventHubClient;
 
-
-        private async Task ReceiveMessagesFromDeviceAsync(string partition, CancellationToken ct)
+        // Asynchronously create a PartitionReceiver for a partition and then start 
+        // reading any messages sent from the simulated client.
+        private static async Task ReceiveMessagesFromDeviceAsync(string partition, CancellationToken ct)
         {
             // Create the receiver using the default consumer group.
             // For the purposes of this sample, read only messages sent since 
             // the time the receiver is created. Typically, you don't want to skip any messages.
             var eventHubReceiver = s_eventHubClient.CreateReceiver("$Default", partition, EventPosition.FromEnqueuedTime(DateTime.Now));
-            //SendSensor("Create receiver on partition: " + partition);
+            Console.WriteLine("Create receiver on partition: " + partition);
             while (true)
             {
                 if (ct.IsCancellationRequested) break;
-                //SendSensor("Listening for messages on: " + partition);
+                Console.WriteLine("Listening for messages on: " + partition);
                 // Check for EventData - this methods times out if there is nothing to retrieve.
                 var events = await eventHubReceiver.ReceiveAsync(100);
 
@@ -50,30 +50,25 @@ namespace SignalRChat
                 foreach (EventData eventData in events)
                 {
                     string data = Encoding.UTF8.GetString(eventData.Body.Array);
-                    //SendSensor("Message received on partition" + partition + ":");
-                    // SendSensor(data);
-
-                    JObject obj = JObject.Parse(data);
-                    // Send("temperature", Convert.ToString(Math.Round(Convert.ToDouble(obj["temperature"]),2)));
-                    Send("temperature", Convert.ToString(obj["temperature"]));
-                    Send("humidity", Convert.ToString(obj["humidity"]));
-                    //SendSensor("Application properties (set by device):");
+                    Console.WriteLine("Message received on partition {0}:", partition);
+                    Console.WriteLine("  {0}:", data);
+                    Console.WriteLine("Application properties (set by device):");
                     foreach (var prop in eventData.Properties)
                     {
-                        //SendSensor(prop.Key + ": " +prop.Value);
+                        Console.WriteLine("  {0}: {1}", prop.Key, prop.Value);
                     }
-                    //SendSensor("System properties (set by IoT Hub):");
+                    Console.WriteLine("System properties (set by IoT Hub):");
                     foreach (var prop in eventData.SystemProperties)
                     {
-                        //SendSensor(prop.Key + prop.Value);
+                        Console.WriteLine("  {0}: {1}", prop.Key, prop.Value);
                     }
                 }
             }
         }
 
-        private async Task Sub()
+        private static async Task Sub()
         {
-            Debug.WriteLine("IoT Hub Quickstarts - Read device to cloud messages. Ctrl-C to exit.\n");
+            Console.WriteLine("IoT Hub Quickstarts - Read device to cloud messages. Ctrl-C to exit.\n");
 
             // Create an EventHubClient instance to connect to the
             // IoT Hub Event Hubs-compatible endpoint.
@@ -90,7 +85,7 @@ namespace SignalRChat
             {
                 e.Cancel = true;
                 cts.Cancel();
-                Debug.WriteLine("Exiting...");
+                Console.WriteLine("Exiting...");
             };
 
             var tasks = new List<Task>();
@@ -101,54 +96,6 @@ namespace SignalRChat
 
             // Wait for all the PartitionReceivers to finsih.
             Task.WaitAll(tasks.ToArray());
-        }
-        /// //////////////////////////////////////////////////////////////////////
-        // Back-End Frontend Kommunikation ////////////
-
-        // Vom Chat
-        public void Send(string name, string message)
-        {
-            // Call the addNewMessageToPage method to update clients.
-            Clients.All.addNewMessageToPage(name, message);
-        }
-
-        public void SendSensor(string message)
-        {
-            string name = "Sensor";
-            // Call the addNewMessageToPage method to update clients.
-            Clients.All.addNewMessageToPage(name, message);
-        }
-
-        public async Task Send2(string message)
-        {
-            await Clients.All.NewMessage(message);
-        }
-
-        private static bool threadKeepRunning = false;
-        public void startPolling()
-        {
-            threadKeepRunning = true; ;
-            Debug.WriteLine("Got it.");
-
-            /*new Thread(() =>
-            {
-                while (threadKeepRunning)
-                {
-                    Debug.WriteLine("Running: " + threadKeepRunning);
-                    System.Threading.Thread.Sleep(500);
-                    Send("Backend", new Random().Next(10).ToString());
-                }
-            }).Start();*/
-            new Thread(() =>
-            {
-                Sub();
-            }).Start();
-        }
-
-        public void stopPolling()
-        {
-            threadKeepRunning = false;
-            Debug.WriteLine("Stop: " + threadKeepRunning);
         }
     }
 }

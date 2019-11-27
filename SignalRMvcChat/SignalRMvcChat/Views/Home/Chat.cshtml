@@ -1,16 +1,31 @@
-﻿@{
-    ViewBag.Title = "Chat";
-}
-
-<h2>Chat</h2>
+﻿@* @{
+        ViewBag.Title = "Chat";
+    }*@
+<!-- <h2>Chat</h2>-->
 <div class="container">
+    <h2> </h2>
     <!-- <input type="text" id="message" /> -->
-    <input type="button" id="sendmessage" value="Send random Sensorval" />
-    <input type="button" id="btn_start_polling" value="Start Polling" />
-    <input type="button" id="btn_stop_polling" value="Stop Polling" />
-    <input type="hidden" id="displayname" />
-    <h3>Received Sensorval:</h3>
+    <!--<input type="button" class="btn btn-outline-secondary" id="sendmessage" value="Send random Sensorval" />
+    <input type="button" class="btn btn-outline-secondary" id="btn_start_polling" value="Start Polling" />
+    <input type="button" class="btn btn-outline-secondary" id="btn_stop_polling" value="Stop Polling" />
+    <input type="hidden" class="btn btn-outline-secondary" id="displayname" />
+        -->
+    <h2>Received Sensorval:</h2>
     <ul id="discussion"></ul>
+    <div class="container row">
+        <div id="btn_start_polling" class="col btn btn-primary" style="display:inline-block;" >
+            <h2>Start</h2>
+            <h2> <span class="glyphicon glyphicon glyphicon-play" aria-hidden="true"></span></h2>
+        </div>
+        <div style="display:inline-block;" class="col btn btn-danger">
+            <h2>Temperature: </h2>
+            <h2 id="temperature">.</h2>
+        </div>
+        <div style="display:inline-block;" class="col  btn btn-warning">
+            <h2>Humidity: </h2>
+            <h2 id="humidity">.</h2>
+        </div>
+    </div>
 </div>
 @section scripts {
     <!--Script references. -->
@@ -27,11 +42,14 @@
             // Create a function that the hub can call back to display messages.
             chat.client.addNewMessageToPage = function (name, message) {
                 // Add the message to the page.
-                $('#discussion').append('<li><strong>' + htmlEncode(name)
-                    + '</strong>: ' + htmlEncode(message) + '</li>');
+                //$('#discussion').append('<li><strong>' + htmlEncode(name)
+                //    + '</strong>: ' + htmlEncode(message) + '</li>');
+                $("#" + name).text(message);
+
+
             };
             // Get the user name and store it to prepend to messages.
-            $('#displayname').val(prompt('Enter your name:', ''));
+            $('#displayname').val(prompt('Please enter your name:', ''));
             // Set initial focus to message input box.
             $('#message').focus();
 
