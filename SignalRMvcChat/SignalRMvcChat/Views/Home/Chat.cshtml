@@ -13,7 +13,7 @@
     <h2>Received Sensorval:</h2>
     <ul id="discussion"></ul>
     <div class="container row">
-        <div id="btn_start_polling" class="col btn btn-primary" style="display:inline-block;" >
+        <div id="btn_start_polling" class="col btn btn-primary" style="display:inline-block;">
             <h2>Start</h2>
             <h2> <span class="glyphicon glyphicon glyphicon-play" aria-hidden="true"></span></h2>
         </div>
@@ -25,6 +25,9 @@
             <h2>Humidity: </h2>
             <h2 id="humidity">.</h2>
         </div>
+    </div>
+    <div id="alerty" class="alert alert-danger" visibility="hidden" >
+        <h2>Pass auf, du kannst schmelzen</h2>
     </div>
 </div>
 @section scripts {
@@ -46,8 +49,14 @@
                 //    + '</strong>: ' + htmlEncode(message) + '</li>');
                 $("#" + name).text(message);
 
+                if (parseFloat($("#temperature").text()) >= 30) {
+                        document.getElementById("alerty").style.visibility = "visible";
+                } else {
+                    document.getElementById("alerty").style.visibility = "hidden";
+                }
 
             };
+
             // Get the user name and store it to prepend to messages.
             $('#displayname').val(prompt('Please enter your name:', ''));
             // Set initial focus to message input box.

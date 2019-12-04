@@ -54,10 +54,11 @@ namespace SignalRChat
                     // SendSensor(data);
 
                     JObject obj = JObject.Parse(data);
-                    // Send("temperature", Convert.ToString(Math.Round(Convert.ToDouble(obj["temperature"]),2)));
-                    Send("temperature", Convert.ToString(obj["temperature"]));
-                    Send("humidity", Convert.ToString(obj["humidity"]));
-                    //SendSensor("Application properties (set by device):");
+                    Send("temperature", Convert.ToString(Math.Round(Convert.ToDouble(obj["temperature"]),2)));
+                    // Send("temperature", Convert.ToString(obj["temperature"]));
+                    // Send("humidity", Convert.ToString(obj["humidity"]));
+                    // SendSensor("Application properties (set by device):");
+                    Send("humidity", Convert.ToString(Math.Round(Convert.ToDouble(obj["humidity"]), 2)));
                     foreach (var prop in eventData.Properties)
                     {
                         //SendSensor(prop.Key + ": " +prop.Value);
