@@ -79,6 +79,7 @@ namespace SignalRChat
             // Create an EventHubClient instance to connect to the
             // IoT Hub Event Hubs-compatible endpoint.
             var connectionString = new EventHubsConnectionStringBuilder(new Uri(s_eventHubsCompatibleEndpoint), s_eventHubsCompatiblePath, s_iotHubSasKeyName, s_iotHubSasKey);
+            Debug.WriteLine(connectionString);
             s_eventHubClient = EventHubClient.CreateFromConnectionString(connectionString.ToString());
 
             // Create a PartitionReciever for each partition on the hub.
