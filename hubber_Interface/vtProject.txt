@@ -1,6 +1,14 @@
 ConnectionString:
-	HostName=derFruchtigeHubber.azure-devices.net;DeviceId=derHubberPy;SharedAccessKey=bgwC9u5fzCoipjeKfznjyKw0WvZ77CYtbt1rzIeB33M=
-	
+Device: 
+	"derHubberPy"
+		HostName=derFruchtigeHubber.azure-devices.net;DeviceId=derHubberPy;SharedAccessKey=bgwC9u5fzCoipjeKfznjyKw0WvZ77CYtbt1rzIeB33M=
+	"derHubberPy2"
+		HostName=derFruchtigeHubber.azure-devices.net;DeviceId=derHubberPy2;SharedAccessKey=QVqTTpIMrSV4Vhfio0pmDgnyKTSqDG/G4Oc2bkmfs30=
+	"derHubberPy3"
+		HostName=derFruchtigeHubber.azure-devices.net;DeviceId=derHubberPy3;SharedAccessKey=jphXdQ9qZowV/PWuohfOEKT8h0nXIoDyuxARPw6Rt20=
+	"derHubberPy4"
+		HostName=derFruchtigeHubber.azure-devices.net;DeviceId=derHubberPy4;SharedAccessKey=71UfeQ/QfpRx70XVDMs3clUNxv+YbGq4TC4N92Z7SZk=
+
 ConnectionString Zum Dienst:
 	HostName=derFruchtigeHubber.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=TK7iZCqCRl06m+nhsuN1tX42xzz8hE7vTkyXft1RhsI=
 
