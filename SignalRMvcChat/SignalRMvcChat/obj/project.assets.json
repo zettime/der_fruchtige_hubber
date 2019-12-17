@@ -1488,11 +1488,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\1631401\\source\\repos\\der_fruchtige_hubber\\SignalRMvcChat\\SignalRMvcChat\\SignalRMvcChat.csproj",
+      "projectUniqueName": "\\\\fileserverhome\\students\\1631401\\Desktop\\VT\\der_fruchtige_hubber\\SignalRMvcChat\\SignalRMvcChat\\SignalRMvcChat.csproj",
       "projectName": "SignalRMvcChat",
-      "projectPath": "C:\\Users\\1631401\\source\\repos\\der_fruchtige_hubber\\SignalRMvcChat\\SignalRMvcChat\\SignalRMvcChat.csproj",
+      "projectPath": "\\\\fileserverhome\\students\\1631401\\Desktop\\VT\\der_fruchtige_hubber\\SignalRMvcChat\\SignalRMvcChat\\SignalRMvcChat.csproj",
       "packagesPath": "C:\\Users\\1631401\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\1631401\\source\\repos\\der_fruchtige_hubber\\SignalRMvcChat\\SignalRMvcChat\\obj\\",
+      "outputPath": "\\\\fileserverhome\\students\\1631401\\Desktop\\VT\\der_fruchtige_hubber\\SignalRMvcChat\\SignalRMvcChat\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
