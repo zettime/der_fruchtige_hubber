@@ -1,0 +1,6 @@
+MQTT
+Installiere Phyten MQTT Pakete:
+	pip install paho-mqtt
+	für Pyhton 2.7 oder
+	pip3 install paho-mqtt
+	für Python 3
